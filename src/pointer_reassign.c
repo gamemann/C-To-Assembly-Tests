@@ -6,6 +6,8 @@ int main()
 
     int *x = &i;
     x = &i;
+
+    fprintf(stdout, "i = %d. x = %d.\n", i, *x);
     
     return 0;
 }
