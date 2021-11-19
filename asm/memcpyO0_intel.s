@@ -12,10 +12,10 @@ main:                                   # @main
 	.cfi_offset rbp, -16
 	mov	rbp, rsp
 	.cfi_def_cfa_register rbp
-	mov	dword ptr [rbp - 4], 0
-	mov	rax, qword ptr [bytes]
-	mov	qword ptr [rbp - 12], rax
 	xor	eax, eax
+	mov	dword ptr [rbp - 4], 0
+	mov	rcx, qword ptr [bytes]
+	mov	qword ptr [rbp - 12], rcx
 	pop	rbp
 	ret
 .Lfunc_end0:

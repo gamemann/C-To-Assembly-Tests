@@ -12,55 +12,61 @@ main:                                   # @main
 	.cfi_offset rbp, -16
 	mov	rbp, rsp
 	.cfi_def_cfa_register rbp
-	sub	rsp, 16
-	mov	dword ptr [rbp - 8], 0
-	mov	dword ptr [rbp - 4], 5
-	cmp	dword ptr [rbp - 4], 0
+	sub	rsp, 32
+	mov	dword ptr [rbp - 4], 0
+	mov	dword ptr [rbp - 8], 5
+	cmp	dword ptr [rbp - 8], 0
 	jne	.LBB0_2
 # %bb.1:
 	movabs	rdi, offset .L.str
 	mov	al, 0
 	call	printf
+	mov	dword ptr [rbp - 12], eax # 4-byte Spill
 	jmp	.LBB0_17
 .LBB0_2:
-	cmp	dword ptr [rbp - 4], 1
+	cmp	dword ptr [rbp - 8], 1
 	jne	.LBB0_4
 # %bb.3:
 	movabs	rdi, offset .L.str.1
 	mov	al, 0
 	call	printf
+	mov	dword ptr [rbp - 16], eax # 4-byte Spill
 	jmp	.LBB0_16
 .LBB0_4:
-	cmp	dword ptr [rbp - 4], 2
+	cmp	dword ptr [rbp - 8], 2
 	jne	.LBB0_6
 # %bb.5:
 	movabs	rdi, offset .L.str.2
 	mov	al, 0
 	call	printf
+	mov	dword ptr [rbp - 20], eax # 4-byte Spill
 	jmp	.LBB0_15
 .LBB0_6:
-	cmp	dword ptr [rbp - 4], 3
+	cmp	dword ptr [rbp - 8], 3
 	jne	.LBB0_8
 # %bb.7:
 	movabs	rdi, offset .L.str.3
 	mov	al, 0
 	call	printf
+	mov	dword ptr [rbp - 24], eax # 4-byte Spill
 	jmp	.LBB0_14
 .LBB0_8:
-	cmp	dword ptr [rbp - 4], 4
+	cmp	dword ptr [rbp - 8], 4
 	jne	.LBB0_10
 # %bb.9:
 	movabs	rdi, offset .L.str.4
 	mov	al, 0
 	call	printf
+	mov	dword ptr [rbp - 28], eax # 4-byte Spill
 	jmp	.LBB0_13
 .LBB0_10:
-	cmp	dword ptr [rbp - 4], 5
+	cmp	dword ptr [rbp - 8], 5
 	jne	.LBB0_12
 # %bb.11:
 	movabs	rdi, offset .L.str.5
 	mov	al, 0
 	call	printf
+	mov	dword ptr [rbp - 32], eax # 4-byte Spill
 .LBB0_12:
 	jmp	.LBB0_13
 .LBB0_13:
@@ -73,7 +79,7 @@ main:                                   # @main
 	jmp	.LBB0_17
 .LBB0_17:
 	xor	eax, eax
-	add	rsp, 16
+	add	rsp, 32
 	pop	rbp
 	ret
 .Lfunc_end0:

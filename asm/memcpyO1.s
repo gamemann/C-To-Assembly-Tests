@@ -6,7 +6,16 @@
 main:                                   # @main
 	.cfi_startproc
 # %bb.0:
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset %rbp, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register %rbp
+	movl	$0, -4(%rbp)
+	movq	bytes, %rax
+	movq	%rax, -12(%rbp)
 	xorl	%eax, %eax
+	popq	%rbp
 	retq
 .Lfunc_end0:
 	.size	main, .Lfunc_end0-main

@@ -11,48 +11,58 @@ main:                                   # @main
 	.cfi_offset %rbp, -16
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register %rbp
-	subq	$16, %rsp
-	movl	$0, -8(%rbp)
-	movl	$5, -4(%rbp)
-	movl	-4(%rbp), %eax
-	movq	%rax, %rcx
-	subq	$5, %rcx
-	ja	.LBB0_8
-# %bb.1:
-	movq	.LJTI0_0(,%rax,8), %rax
-	jmpq	*%rax
-.LBB0_2:
+	subq	$48, %rsp
+	movl	$0, -4(%rbp)
+	movl	$5, -8(%rbp)
+	movl	-8(%rbp), %eax
+	movl	%eax, %ecx
+	movq	%rcx, %rdx
+	subq	$5, %rdx
+	movq	%rcx, -16(%rbp)         # 8-byte Spill
+	movq	%rdx, -24(%rbp)         # 8-byte Spill
+	ja	.LBB0_7
+# %bb.8:
+	movq	-16(%rbp), %rax         # 8-byte Reload
+	movq	.LJTI0_0(,%rax,8), %rcx
+	jmpq	*%rcx
+.LBB0_1:
 	movabsq	$.L.str, %rdi
 	movb	$0, %al
 	callq	printf
-	jmp	.LBB0_8
-.LBB0_3:
+	movl	%eax, -28(%rbp)         # 4-byte Spill
+	jmp	.LBB0_7
+.LBB0_2:
 	movabsq	$.L.str.1, %rdi
 	movb	$0, %al
 	callq	printf
-	jmp	.LBB0_8
-.LBB0_4:
+	movl	%eax, -32(%rbp)         # 4-byte Spill
+	jmp	.LBB0_7
+.LBB0_3:
 	movabsq	$.L.str.2, %rdi
 	movb	$0, %al
 	callq	printf
-	jmp	.LBB0_8
-.LBB0_5:
+	movl	%eax, -36(%rbp)         # 4-byte Spill
+	jmp	.LBB0_7
+.LBB0_4:
 	movabsq	$.L.str.3, %rdi
 	movb	$0, %al
 	callq	printf
-	jmp	.LBB0_8
-.LBB0_6:
+	movl	%eax, -40(%rbp)         # 4-byte Spill
+	jmp	.LBB0_7
+.LBB0_5:
 	movabsq	$.L.str.4, %rdi
 	movb	$0, %al
 	callq	printf
-	jmp	.LBB0_8
-.LBB0_7:
+	movl	%eax, -44(%rbp)         # 4-byte Spill
+	jmp	.LBB0_7
+.LBB0_6:
 	movabsq	$.L.str.5, %rdi
 	movb	$0, %al
 	callq	printf
-.LBB0_8:
+	movl	%eax, -48(%rbp)         # 4-byte Spill
+.LBB0_7:
 	xorl	%eax, %eax
-	addq	$16, %rsp
+	addq	$48, %rsp
 	popq	%rbp
 	retq
 .Lfunc_end0:
@@ -61,12 +71,12 @@ main:                                   # @main
 	.section	.rodata,"a",@progbits
 	.p2align	3
 .LJTI0_0:
+	.quad	.LBB0_1
 	.quad	.LBB0_2
 	.quad	.LBB0_3
 	.quad	.LBB0_4
 	.quad	.LBB0_5
 	.quad	.LBB0_6
-	.quad	.LBB0_7
                                         # -- End function
 	.type	.L.str,@object          # @.str
 	.section	.rodata.str1.1,"aMS",@progbits,1

@@ -7,7 +7,16 @@
 main:                                   # @main
 	.cfi_startproc
 # %bb.0:
+	push	rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset rbp, -16
+	mov	rbp, rsp
+	.cfi_def_cfa_register rbp
+	mov	dword ptr [rbp - 4], 0
+	mov	rax, qword ptr [bytes]
+	mov	qword ptr [rbp - 12], rax
 	xor	eax, eax
+	pop	rbp
 	ret
 .Lfunc_end0:
 	.size	main, .Lfunc_end0-main

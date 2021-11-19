@@ -11,55 +11,61 @@ main:                                   # @main
 	.cfi_offset %rbp, -16
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register %rbp
-	subq	$16, %rsp
-	movl	$0, -8(%rbp)
-	movl	$5, -4(%rbp)
-	cmpl	$0, -4(%rbp)
+	subq	$32, %rsp
+	movl	$0, -4(%rbp)
+	movl	$5, -8(%rbp)
+	cmpl	$0, -8(%rbp)
 	jne	.LBB0_2
 # %bb.1:
 	movabsq	$.L.str, %rdi
 	movb	$0, %al
 	callq	printf
+	movl	%eax, -12(%rbp)         # 4-byte Spill
 	jmp	.LBB0_17
 .LBB0_2:
-	cmpl	$1, -4(%rbp)
+	cmpl	$1, -8(%rbp)
 	jne	.LBB0_4
 # %bb.3:
 	movabsq	$.L.str.1, %rdi
 	movb	$0, %al
 	callq	printf
+	movl	%eax, -16(%rbp)         # 4-byte Spill
 	jmp	.LBB0_16
 .LBB0_4:
-	cmpl	$2, -4(%rbp)
+	cmpl	$2, -8(%rbp)
 	jne	.LBB0_6
 # %bb.5:
 	movabsq	$.L.str.2, %rdi
 	movb	$0, %al
 	callq	printf
+	movl	%eax, -20(%rbp)         # 4-byte Spill
 	jmp	.LBB0_15
 .LBB0_6:
-	cmpl	$3, -4(%rbp)
+	cmpl	$3, -8(%rbp)
 	jne	.LBB0_8
 # %bb.7:
 	movabsq	$.L.str.3, %rdi
 	movb	$0, %al
 	callq	printf
+	movl	%eax, -24(%rbp)         # 4-byte Spill
 	jmp	.LBB0_14
 .LBB0_8:
-	cmpl	$4, -4(%rbp)
+	cmpl	$4, -8(%rbp)
 	jne	.LBB0_10
 # %bb.9:
 	movabsq	$.L.str.4, %rdi
 	movb	$0, %al
 	callq	printf
+	movl	%eax, -28(%rbp)         # 4-byte Spill
 	jmp	.LBB0_13
 .LBB0_10:
-	cmpl	$5, -4(%rbp)
+	cmpl	$5, -8(%rbp)
 	jne	.LBB0_12
 # %bb.11:
 	movabsq	$.L.str.5, %rdi
 	movb	$0, %al
 	callq	printf
+	movl	%eax, -32(%rbp)         # 4-byte Spill
 .LBB0_12:
 	jmp	.LBB0_13
 .LBB0_13:
@@ -72,7 +78,7 @@ main:                                   # @main
 	jmp	.LBB0_17
 .LBB0_17:
 	xorl	%eax, %eax
-	addq	$16, %rsp
+	addq	$32, %rsp
 	popq	%rbp
 	retq
 .Lfunc_end0:

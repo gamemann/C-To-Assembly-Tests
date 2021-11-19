@@ -1,44 +1,43 @@
 	.text
-	.file	"unroll_test.c"
+	.intel_syntax noprefix
+	.file	"unroll_not_test.c"
 	.globl	main                    # -- Begin function main
 	.p2align	4, 0x90
 	.type	main,@function
 main:                                   # @main
 	.cfi_startproc
 # %bb.0:
-	pushq	%rbp
+	push	rbp
 	.cfi_def_cfa_offset 16
-	.cfi_offset %rbp, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register %rbp
-	subq	$16, %rsp
-	movl	$0, -4(%rbp)
-	movl	$0, -8(%rbp)
-	movl	$0, -12(%rbp)
+	.cfi_offset rbp, -16
+	mov	rbp, rsp
+	.cfi_def_cfa_register rbp
+	sub	rsp, 16
+	mov	dword ptr [rbp - 12], 0
+	mov	dword ptr [rbp - 8], 0
+	mov	dword ptr [rbp - 4], 0
 .LBB0_1:                                # =>This Inner Loop Header: Depth=1
-	cmpl	$256, -12(%rbp)         # imm = 0x100
+	cmp	dword ptr [rbp - 4], 256
 	jge	.LBB0_4
 # %bb.2:                                #   in Loop: Header=BB0_1 Depth=1
-	movl	-12(%rbp), %eax
-	shll	$1, %eax
-	addl	-8(%rbp), %eax
-	movl	%eax, -8(%rbp)
+	mov	eax, dword ptr [rbp - 4]
+	shl	eax, 1
+	add	eax, dword ptr [rbp - 8]
+	mov	dword ptr [rbp - 8], eax
 # %bb.3:                                #   in Loop: Header=BB0_1 Depth=1
-	movl	-12(%rbp), %eax
-	addl	$1, %eax
-	movl	%eax, -12(%rbp)
+	mov	eax, dword ptr [rbp - 4]
+	add	eax, 1
+	mov	dword ptr [rbp - 4], eax
 	jmp	.LBB0_1
 .LBB0_4:
-	movabsq	$.L.str, %rdi
-	movl	-8(%rbp), %esi
-	movb	$0, %al
-	callq	printf
-	xorl	%esi, %esi
-	movl	%eax, -16(%rbp)         # 4-byte Spill
-	movl	%esi, %eax
-	addq	$16, %rsp
-	popq	%rbp
-	retq
+	movabs	rdi, offset .L.str
+	mov	esi, dword ptr [rbp - 8]
+	mov	al, 0
+	call	printf
+	xor	eax, eax
+	add	rsp, 16
+	pop	rbp
+	ret
 .Lfunc_end0:
 	.size	main, .Lfunc_end0-main
 	.cfi_endproc

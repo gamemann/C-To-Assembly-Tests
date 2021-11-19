@@ -12,48 +12,58 @@ main:                                   # @main
 	.cfi_offset rbp, -16
 	mov	rbp, rsp
 	.cfi_def_cfa_register rbp
-	sub	rsp, 16
-	mov	dword ptr [rbp - 8], 0
-	mov	dword ptr [rbp - 4], 5
-	mov	eax, dword ptr [rbp - 4]
-	mov	rcx, rax
-	sub	rcx, 5
-	ja	.LBB0_8
-# %bb.1:
-	mov	rax, qword ptr [8*rax + .LJTI0_0]
-	jmp	rax
-.LBB0_2:
+	sub	rsp, 48
+	mov	dword ptr [rbp - 4], 0
+	mov	dword ptr [rbp - 8], 5
+	mov	eax, dword ptr [rbp - 8]
+	mov	ecx, eax
+	mov	rdx, rcx
+	sub	rdx, 5
+	mov	qword ptr [rbp - 16], rcx # 8-byte Spill
+	mov	qword ptr [rbp - 24], rdx # 8-byte Spill
+	ja	.LBB0_7
+# %bb.8:
+	mov	rax, qword ptr [rbp - 16] # 8-byte Reload
+	mov	rcx, qword ptr [8*rax + .LJTI0_0]
+	jmp	rcx
+.LBB0_1:
 	movabs	rdi, offset .L.str
 	mov	al, 0
 	call	printf
-	jmp	.LBB0_8
-.LBB0_3:
+	mov	dword ptr [rbp - 28], eax # 4-byte Spill
+	jmp	.LBB0_7
+.LBB0_2:
 	movabs	rdi, offset .L.str.1
 	mov	al, 0
 	call	printf
-	jmp	.LBB0_8
-.LBB0_4:
+	mov	dword ptr [rbp - 32], eax # 4-byte Spill
+	jmp	.LBB0_7
+.LBB0_3:
 	movabs	rdi, offset .L.str.2
 	mov	al, 0
 	call	printf
-	jmp	.LBB0_8
-.LBB0_5:
+	mov	dword ptr [rbp - 36], eax # 4-byte Spill
+	jmp	.LBB0_7
+.LBB0_4:
 	movabs	rdi, offset .L.str.3
 	mov	al, 0
 	call	printf
-	jmp	.LBB0_8
-.LBB0_6:
+	mov	dword ptr [rbp - 40], eax # 4-byte Spill
+	jmp	.LBB0_7
+.LBB0_5:
 	movabs	rdi, offset .L.str.4
 	mov	al, 0
 	call	printf
-	jmp	.LBB0_8
-.LBB0_7:
+	mov	dword ptr [rbp - 44], eax # 4-byte Spill
+	jmp	.LBB0_7
+.LBB0_6:
 	movabs	rdi, offset .L.str.5
 	mov	al, 0
 	call	printf
-.LBB0_8:
+	mov	dword ptr [rbp - 48], eax # 4-byte Spill
+.LBB0_7:
 	xor	eax, eax
-	add	rsp, 16
+	add	rsp, 48
 	pop	rbp
 	ret
 .Lfunc_end0:
@@ -62,12 +72,12 @@ main:                                   # @main
 	.section	.rodata,"a",@progbits
 	.p2align	3
 .LJTI0_0:
+	.quad	.LBB0_1
 	.quad	.LBB0_2
 	.quad	.LBB0_3
 	.quad	.LBB0_4
 	.quad	.LBB0_5
 	.quad	.LBB0_6
-	.quad	.LBB0_7
                                         # -- End function
 	.type	.L.str,@object          # @.str
 	.section	.rodata.str1.1,"aMS",@progbits,1

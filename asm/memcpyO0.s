@@ -11,10 +11,10 @@ main:                                   # @main
 	.cfi_offset %rbp, -16
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register %rbp
-	movl	$0, -4(%rbp)
-	movq	bytes, %rax
-	movq	%rax, -12(%rbp)
 	xorl	%eax, %eax
+	movl	$0, -4(%rbp)
+	movq	bytes, %rcx
+	movq	%rcx, -12(%rbp)
 	popq	%rbp
 	retq
 .Lfunc_end0:

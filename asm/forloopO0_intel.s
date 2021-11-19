@@ -12,21 +12,21 @@ main:                                   # @main
 	.cfi_offset rbp, -16
 	mov	rbp, rsp
 	.cfi_def_cfa_register rbp
-	mov	dword ptr [rbp - 8], 0
 	mov	dword ptr [rbp - 4], 0
+	mov	dword ptr [rbp - 16], 0
 .LBB0_1:                                # =>This Inner Loop Header: Depth=1
-	movsxd	rax, dword ptr [rbp - 4]
+	movsxd	rax, dword ptr [rbp - 16]
 	cmp	rax, 8
 	jae	.LBB0_4
 # %bb.2:                                #   in Loop: Header=BB0_1 Depth=1
-	movsxd	rax, dword ptr [rbp - 4]
-	mov	al, byte ptr [rax + bytes]
-	movsxd	rcx, dword ptr [rbp - 4]
-	mov	byte ptr [rbp + rcx - 16], al
+	movsxd	rax, dword ptr [rbp - 16]
+	mov	cl, byte ptr [rax + bytes]
+	movsxd	rax, dword ptr [rbp - 16]
+	mov	byte ptr [rbp + rax - 12], cl
 # %bb.3:                                #   in Loop: Header=BB0_1 Depth=1
-	mov	eax, dword ptr [rbp - 4]
+	mov	eax, dword ptr [rbp - 16]
 	add	eax, 1
-	mov	dword ptr [rbp - 4], eax
+	mov	dword ptr [rbp - 16], eax
 	jmp	.LBB0_1
 .LBB0_4:
 	xor	eax, eax
