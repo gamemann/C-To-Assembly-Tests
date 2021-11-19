@@ -1,6 +1,6 @@
 	.text
 	.intel_syntax noprefix
-	.file	"pointer_reassign.c"
+	.file	"pointer.c"
 	.globl	main                    # -- Begin function main
 	.p2align	4, 0x90
 	.type	main,@function
@@ -14,18 +14,19 @@ main:                                   # @main
 	.cfi_def_cfa_register rbp
 	sub	rsp, 32
 	movabs	rsi, offset .L.str
-	lea	rax, [rbp - 4]
-	mov	dword ptr [rbp - 20], 0
-	mov	dword ptr [rbp - 4], 1
-	mov	qword ptr [rbp - 16], rax
+	lea	rax, [rbp - 8]
+	mov	dword ptr [rbp - 4], 0
+	mov	dword ptr [rbp - 8], 1
 	mov	qword ptr [rbp - 16], rax
 	mov	rdi, qword ptr [stdout]
-	mov	edx, dword ptr [rbp - 4]
+	mov	edx, dword ptr [rbp - 8]
 	mov	rax, qword ptr [rbp - 16]
 	mov	ecx, dword ptr [rax]
 	mov	al, 0
 	call	fprintf
-	xor	eax, eax
+	xor	ecx, ecx
+	mov	dword ptr [rbp - 20], eax # 4-byte Spill
+	mov	eax, ecx
 	add	rsp, 32
 	pop	rbp
 	ret

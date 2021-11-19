@@ -6,16 +6,26 @@
 main:                                   # @main
 	.cfi_startproc
 # %bb.0:
-	pushq	%rax
+	pushq	%rbp
 	.cfi_def_cfa_offset 16
-	movq	stdout(%rip), %rdi
-	movl	$.L.str, %esi
-	movl	$1, %edx
-	movl	$1, %ecx
-	xorl	%eax, %eax
+	.cfi_offset %rbp, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register %rbp
+	subq	$32, %rsp
+	movabsq	$.L.str, %rsi
+	leaq	-4(%rbp), %rax
+	movl	$0, -20(%rbp)
+	movl	$1, -4(%rbp)
+	movq	%rax, -16(%rbp)
+	movq	stdout, %rdi
+	movl	-4(%rbp), %edx
+	movq	-16(%rbp), %rax
+	movl	(%rax), %ecx
+	movb	$0, %al
 	callq	fprintf
 	xorl	%eax, %eax
-	popq	%rcx
+	addq	$32, %rsp
+	popq	%rbp
 	retq
 .Lfunc_end0:
 	.size	main, .Lfunc_end0-main

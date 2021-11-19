@@ -1,5 +1,4 @@
 	.text
-	.intel_syntax noprefix
 	.file	"empty.c"
 	.globl	main                    # -- Begin function main
 	.p2align	4, 0x90
@@ -7,15 +6,15 @@
 main:                                   # @main
 	.cfi_startproc
 # %bb.0:
-	push	rbp
+	pushq	%rbp
 	.cfi_def_cfa_offset 16
-	.cfi_offset rbp, -16
-	mov	rbp, rsp
-	.cfi_def_cfa_register rbp
-	mov	dword ptr [rbp - 4], 0
-	xor	eax, eax
-	pop	rbp
-	ret
+	.cfi_offset %rbp, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register %rbp
+	xorl	%eax, %eax
+	movl	$0, -4(%rbp)
+	popq	%rbp
+	retq
 .Lfunc_end0:
 	.size	main, .Lfunc_end0-main
 	.cfi_endproc
