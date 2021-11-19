@@ -12,13 +12,13 @@ I've made the following source files to test with.
 I'll likely be adding more files to this repository as time goes on.
 
 ## Dumping Assembly Code
-I used `clang` to emit LLVM and create the `.bc` file with low optimizations (the `-O0` flag). An example may be found below.
+I used `clang` to emit LLVM and create the `.bc` file with no optimizations by the compiler (the `-O0` flag). An example may be found below.
 
 ```bash
 clang -c -emit-llvm -O0 -o asm/testO2.bc src/test.c
 ```
 
-Since we emit `llvm`, we may use the `llc` command to dump the Assembly code under specific optimization levels. I dump both the native architecture's Assembly code and also Intel's Assembly code (these Assembly files are appended with `_intel`).
+Since we emit LLVM, we may use the `llc` command to dump the Assembly code under specific optimization levels. I dump both the native architecture's Assembly code and also Intel's Assembly code (these Assembly files are appended with `_intel`).
 
 Here's an example using optimization level `2` (notice the `-O=2` flag in the `llc` command).
 
