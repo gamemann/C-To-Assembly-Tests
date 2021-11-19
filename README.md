@@ -72,7 +72,7 @@ Clang's optimization levels may be found in its manual page (`man clang`). For r
 You'll notice a lot of optimizations within the Assembly code from `-O1` to `-O3`.
 
 ## System
-This was all tested on my Linux VM running `virtio_net` drivers and Ubuntu 20.04 Server.
+This was all tested on my Linux VM running `virtio_net` drivers and Ubuntu 20.04 Server. The Linux kernel the tests in `asm/` were built with was `5.15.2-051502-generic`.
 
 ## Credits
 * [Christian Deacon](https://github.com/gamemann)
