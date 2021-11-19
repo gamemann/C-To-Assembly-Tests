@@ -12,17 +12,25 @@ I've made the following source files to test with.
 I'll likely be adding more files to this repository as time goes on.
 
 ## Dumping Assembly Code
-I used `clang` to emit LLVM and create the `.bc` file. An example may be found below.
+I used `clang` to emit LLVM and create the `.bc` file with low optimizations (the `-O0` flag). An example may be found below.
 
 ```bash
-clang -c -emit-llvm -O2 -o asm/testO2.bc src/test.c
+clang -c -emit-llvm -O0 -o asm/testO2.bc src/test.c
 ```
 
-Since we emit `llvm`, we may use the `llc` command to dump the Assembly code. I dump both the native architecture's Assembly code and also Intel's Assembly code (these Assembly files are appended with `_intel`).
+Since we emit `llvm`, we may use the `llc` command to dump the Assembly code under specific optimization levels. I dump both the native architecture's Assembly code and also Intel's Assembly code (these Assembly files are appended with `_intel`).
+
+Here's an example using optimization level `2` (notice the `-O=2` flag in the `llc` command).
 
 ```bash
-llc -filetype=asm -o asm/testO2.s asm/testO2.bc # Native architecture's Assembly code.
-llc -filetype=asm -o asm/testO2_intel.s --x86-asm-syntax=intel asm/testO2.bc # Intel Assembly code.
+llc -filetype=asm -O=2 -o asm/testO2.s asm/testO2.bc # Native architecture's Assembly code.
+llc -filetype=asm -O=2 -o asm/testO2_intel.s --x86-asm-syntax=intel asm/testO2.bc # Intel Assembly code.
+```
+
+**NOTE** - I'd recommend using the `scripts/genassembly.sh` Bash script I made to generate Assembly code under optimization levels 0 (None) - 3 and both non-Intel and Intel architectures. The script only requires one argument which is the name of the source file in `src/` without the file extension (`.c`). Also make sure to modify the `ROOTDIR` variable if you place the script outside of this repository's `scripts/` directory. An example may be found below.
+
+```bash
+./genassembly.sh pointer
 ```
 
 ## Optimization Levels
