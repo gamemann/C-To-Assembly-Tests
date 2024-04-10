@@ -9,40 +9,28 @@
 	.globl	main
 	.type	main, @function
 main:
-.LFB34:
+.LFB11:
 	.cfi_startproc
 	subq	$24, %rsp
 	.cfi_def_cfa_offset 32
-	movq	%fs:40, %rax
-	movq	%rax, 8(%rsp)
-	xorl	%eax, %eax
 	movq	stdout(%rip), %rcx
 	movl	$6, %edx
 	movl	$1, %esi
 	leaq	.LC0(%rip), %rdi
 	call	fwrite@PLT
-	movl	$1280066888, 1(%rsp)
-	movw	$2639, 5(%rsp)
-	movb	$0, 7(%rsp)
-	leaq	1(%rsp), %rcx
-	leaq	.LC1(%rip), %rdx
-	movl	$1, %esi
+	movl	$1280066888, 9(%rsp)
+	movl	$675660, 12(%rsp)
+	leaq	9(%rsp), %rdx
+	leaq	.LC1(%rip), %rsi
 	movq	stderr(%rip), %rdi
 	movl	$0, %eax
-	call	__fprintf_chk@PLT
-	movq	8(%rsp), %rdx
-	xorq	%fs:40, %rdx
-	jne	.L4
+	call	fprintf@PLT
 	movl	$0, %eax
 	addq	$24, %rsp
-	.cfi_remember_state
 	.cfi_def_cfa_offset 8
 	ret
-.L4:
-	.cfi_restore_state
-	call	__stack_chk_fail@PLT
 	.cfi_endproc
-.LFE34:
+.LFE11:
 	.size	main, .-main
-	.ident	"GCC: (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0"
+	.ident	"GCC: (Debian 12.2.0-14) 12.2.0"
 	.section	.note.GNU-stack,"",@progbits

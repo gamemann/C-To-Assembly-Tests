@@ -1,6 +1,6 @@
 	.text
 	.file	"64to8.c"
-	.globl	main                    # -- Begin function main
+	.globl	main                            # -- Begin function main
 	.p2align	4, 0x90
 	.type	main,@function
 main:                                   # @main
@@ -12,54 +12,54 @@ main:                                   # @main
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register %rbp
 	subq	$32, %rsp
-	movabsq	$.L.str, %rdi
-	leaq	-16(%rbp), %rax
-	movabsq	$8128420482184, %rcx    # imm = 0x7648B9D8C88
 	movl	$0, -28(%rbp)
-	movq	%rcx, -8(%rbp)
-	movq	-8(%rbp), %rcx
-	shrq	$0, %rcx
-	movb	%cl, -16(%rbp)
-	movq	-8(%rbp), %rcx
-	shrq	$8, %rcx
-	movb	%cl, -15(%rbp)
-	movq	-8(%rbp), %rcx
-	shrq	$16, %rcx
-	movb	%cl, -14(%rbp)
-	movq	-8(%rbp), %rcx
-	shrq	$24, %rcx
-	movb	%cl, -13(%rbp)
-	movq	-8(%rbp), %rcx
-	shrq	$32, %rcx
-	movb	%cl, -12(%rbp)
-	movq	-8(%rbp), %rcx
-	shrq	$40, %rcx
-	movb	%cl, -11(%rbp)
-	movq	-8(%rbp), %rcx
-	shrq	$48, %rcx
-	movb	%cl, -10(%rbp)
-	movq	-8(%rbp), %rcx
-	shrq	$56, %rcx
-	movb	%cl, -9(%rbp)
+	movabsq	$8128420482184, %rax            # imm = 0x7648B9D8C88
+	movq	%rax, -8(%rbp)
+	movq	-8(%rbp), %rax
+	shrq	$0, %rax
+	movb	%al, -16(%rbp)
+	movq	-8(%rbp), %rax
+	shrq	$8, %rax
+	movb	%al, -15(%rbp)
+	movq	-8(%rbp), %rax
+	shrq	$16, %rax
+	movb	%al, -14(%rbp)
+	movq	-8(%rbp), %rax
+	shrq	$24, %rax
+	movb	%al, -13(%rbp)
+	movq	-8(%rbp), %rax
+	shrq	$32, %rax
+	movb	%al, -12(%rbp)
+	movq	-8(%rbp), %rax
+	shrq	$40, %rax
+	movb	%al, -11(%rbp)
+	movq	-8(%rbp), %rax
+	shrq	$48, %rax
+	movb	%al, -10(%rbp)
+	movq	-8(%rbp), %rax
+	shrq	$56, %rax
+	movb	%al, -9(%rbp)
+	leaq	-16(%rbp), %rax
 	movq	%rax, -24(%rbp)
 	movq	-24(%rbp), %rax
 	movq	(%rax), %rsi
+	movabsq	$.L.str, %rdi
 	movb	$0, %al
-	callq	printf
+	callq	printf@PLT
 	xorl	%eax, %eax
 	addq	$32, %rsp
 	popq	%rbp
+	.cfi_def_cfa %rsp, 8
 	retq
 .Lfunc_end0:
 	.size	main, .Lfunc_end0-main
 	.cfi_endproc
                                         # -- End function
-	.type	.L.str,@object          # @.str
+	.type	.L.str,@object                  # @.str
 	.section	.rodata.str1.1,"aMS",@progbits,1
 .L.str:
 	.asciz	"Value is %llu.\n."
 	.size	.L.str, 17
 
-
-	.ident	"clang version 6.0.0-1ubuntu2 (tags/RELEASE_600/final)"
+	.ident	"Debian clang version 14.0.6"
 	.section	".note.GNU-stack","",@progbits

@@ -1,21 +1,22 @@
 	.file	"empty.c"
 	.text
 .Ltext0:
+	.file 0 "/home/christian/C-To-Assembly-Tests/scripts" "../src/empty.c"
 	.globl	main
 	.type	main, @function
 main:
 .LFB0:
 	.file 1 "../src/empty.c"
-	.loc 1 2 0
+	.loc 1 2 1
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
 	.cfi_offset 6, -16
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register 6
-	.loc 1 3 0
+	.loc 1 3 12
 	movl	$0, %eax
-	.loc 1 4 0
+	.loc 1 4 1
 	popq	%rbp
 	.cfi_def_cfa 7, 8
 	ret
@@ -25,15 +26,16 @@ main:
 .Letext0:
 	.section	.debug_info,"",@progbits
 .Ldebug_info0:
-	.long	0x4e
-	.value	0x4
-	.long	.Ldebug_abbrev0
+	.long	0x50
+	.value	0x5
+	.byte	0x1
 	.byte	0x8
+	.long	.Ldebug_abbrev0
 	.uleb128 0x1
-	.long	.LASF0
-	.byte	0xc
-	.long	.LASF1
 	.long	.LASF2
+	.byte	0x1d
+	.long	.LASF0
+	.long	.LASF1
 	.quad	.Ltext0
 	.quad	.Letext0-.Ltext0
 	.long	.Ldebug_line0
@@ -41,7 +43,8 @@ main:
 	.long	.LASF3
 	.byte	0x1
 	.byte	0x1
-	.long	0x4a
+	.byte	0x5
+	.long	0x4c
 	.quad	.LFB0
 	.quad	.LFE0-.LFB0
 	.uleb128 0x1
@@ -61,9 +64,9 @@ main:
 	.uleb128 0x13
 	.uleb128 0xb
 	.uleb128 0x3
-	.uleb128 0xe
+	.uleb128 0x1f
 	.uleb128 0x1b
-	.uleb128 0xe
+	.uleb128 0x1f
 	.uleb128 0x11
 	.uleb128 0x1
 	.uleb128 0x12
@@ -83,6 +86,8 @@ main:
 	.uleb128 0xb
 	.uleb128 0x3b
 	.uleb128 0xb
+	.uleb128 0x39
+	.uleb128 0xb
 	.uleb128 0x49
 	.uleb128 0x13
 	.uleb128 0x11
@@ -91,7 +96,7 @@ main:
 	.uleb128 0x7
 	.uleb128 0x40
 	.uleb128 0x18
-	.uleb128 0x2117
+	.uleb128 0x7a
 	.uleb128 0x19
 	.byte	0
 	.byte	0
@@ -122,13 +127,14 @@ main:
 	.section	.debug_line,"",@progbits
 .Ldebug_line0:
 	.section	.debug_str,"MS",@progbits,1
-.LASF0:
-	.string	"GNU C11 7.5.0 -mtune=generic -march=x86-64 -g -O0 -fstack-protector-strong"
-.LASF2:
-	.string	"/home/dev/HelloWorld/assembly/scripts"
-.LASF1:
-	.string	"../src/empty.c"
 .LASF3:
 	.string	"main"
-	.ident	"GCC: (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0"
+.LASF2:
+	.string	"GNU C17 12.2.0 -mtune=generic -march=x86-64 -g -O0 -fasynchronous-unwind-tables"
+	.section	.debug_line_str,"MS",@progbits,1
+.LASF1:
+	.string	"/home/christian/C-To-Assembly-Tests/scripts"
+.LASF0:
+	.string	"../src/empty.c"
+	.ident	"GCC: (Debian 12.2.0-14) 12.2.0"
 	.section	.note.GNU-stack,"",@progbits

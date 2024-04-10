@@ -1,7 +1,7 @@
 	.text
 	.intel_syntax noprefix
 	.file	"nullptr.c"
-	.globl	main                    # -- Begin function main
+	.globl	main                            # -- Begin function main
 	.p2align	4, 0x90
 	.type	main,@function
 main:                                   # @main
@@ -15,42 +15,40 @@ main:                                   # @main
 	sub	rsp, 32
 	mov	dword ptr [rbp - 4], 0
 	mov	qword ptr [rbp - 16], 0
-	mov	rdi, qword ptr [stdout]
+	mov	rax, qword ptr [rip + stdout@GOTPCREL]
+	mov	rax, qword ptr [rax]
+	mov	qword ptr [rbp - 24], rax       # 8-byte Spill
 	cmp	qword ptr [rbp - 16], 0
-	mov	qword ptr [rbp - 24], rdi # 8-byte Spill
 	je	.LBB0_2
 # %bb.1:
 	mov	rax, qword ptr [rbp - 16]
-	mov	ecx, dword ptr [rax]
-	mov	dword ptr [rbp - 28], ecx # 4-byte Spill
+	mov	eax, dword ptr [rax]
+	mov	dword ptr [rbp - 28], eax       # 4-byte Spill
 	jmp	.LBB0_3
 .LBB0_2:
 	xor	eax, eax
-	mov	dword ptr [rbp - 28], eax # 4-byte Spill
+	mov	dword ptr [rbp - 28], eax       # 4-byte Spill
 	jmp	.LBB0_3
 .LBB0_3:
-	mov	eax, dword ptr [rbp - 28] # 4-byte Reload
+	mov	rdi, qword ptr [rbp - 24]       # 8-byte Reload
+	mov	edx, dword ptr [rbp - 28]       # 4-byte Reload
 	movabs	rsi, offset .L.str
-	mov	rdi, qword ptr [rbp - 24] # 8-byte Reload
-	mov	edx, eax
 	mov	al, 0
-	call	fprintf
-	xor	edx, edx
-	mov	dword ptr [rbp - 32], eax # 4-byte Spill
-	mov	eax, edx
+	call	fprintf@PLT
+	xor	eax, eax
 	add	rsp, 32
 	pop	rbp
+	.cfi_def_cfa rsp, 8
 	ret
 .Lfunc_end0:
 	.size	main, .Lfunc_end0-main
 	.cfi_endproc
                                         # -- End function
-	.type	.L.str,@object          # @.str
+	.type	.L.str,@object                  # @.str
 	.section	.rodata.str1.1,"aMS",@progbits,1
 .L.str:
 	.asciz	"%d is i.\n"
 	.size	.L.str, 10
 
-
-	.ident	"clang version 6.0.0-1ubuntu2 (tags/RELEASE_600/final)"
+	.ident	"Debian clang version 14.0.6"
 	.section	".note.GNU-stack","",@progbits

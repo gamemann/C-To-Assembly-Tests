@@ -1,7 +1,7 @@
 	.text
 	.intel_syntax noprefix
 	.file	"nullptr.c"
-	.globl	main                    # -- Begin function main
+	.globl	main                            # -- Begin function main
 	.p2align	4, 0x90
 	.type	main,@function
 main:                                   # @main
@@ -15,7 +15,8 @@ main:                                   # @main
 	sub	rsp, 16
 	mov	dword ptr [rbp - 12], 0
 	mov	qword ptr [rbp - 8], 0
-	mov	rdi, qword ptr [stdout]
+	mov	rax, qword ptr [rip + stdout@GOTPCREL]
+	mov	rdi, qword ptr [rax]
 	cmp	qword ptr [rbp - 8], 0
 	je	.LBB0_2
 # %bb.1:
@@ -28,21 +29,21 @@ main:                                   # @main
 .LBB0_3:
 	movabs	rsi, offset .L.str
 	mov	al, 0
-	call	fprintf
+	call	fprintf@PLT
 	xor	eax, eax
 	add	rsp, 16
 	pop	rbp
+	.cfi_def_cfa rsp, 8
 	ret
 .Lfunc_end0:
 	.size	main, .Lfunc_end0-main
 	.cfi_endproc
                                         # -- End function
-	.type	.L.str,@object          # @.str
+	.type	.L.str,@object                  # @.str
 	.section	.rodata.str1.1,"aMS",@progbits,1
 .L.str:
 	.asciz	"%d is i.\n"
 	.size	.L.str, 10
 
-
-	.ident	"clang version 6.0.0-1ubuntu2 (tags/RELEASE_600/final)"
+	.ident	"Debian clang version 14.0.6"
 	.section	".note.GNU-stack","",@progbits

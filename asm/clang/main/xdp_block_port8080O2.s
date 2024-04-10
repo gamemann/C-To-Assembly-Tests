@@ -1,7 +1,9 @@
 	.text
+	.file	"xdp_block_port8080.c"
 	.section	xdp_prog,"ax",@progbits
-	.globl	xdp_prog_main           # -- Begin function xdp_prog_main
+	.globl	xdp_prog_main                   # -- Begin function xdp_prog_main
 	.p2align	3
+	.type	xdp_prog_main,@function
 xdp_prog_main:                          # @xdp_prog_main
 # %bb.0:
 	r6 = 1
@@ -44,15 +46,21 @@ xdp_prog_main:                          # @xdp_prog_main
 LBB0_6:
 	r0 = r6
 	exit
+.Lfunc_end0:
+	.size	xdp_prog_main, .Lfunc_end0-xdp_prog_main
                                         # -- End function
+	.type	blocked_map,@object             # @blocked_map
 	.section	maps,"aw",@progbits
-	.globl	blocked_map             # @blocked_map
+	.globl	blocked_map
 	.p2align	2
 blocked_map:
-	.long	9                       # 0x9
-	.long	4                       # 0x4
-	.long	1                       # 0x1
-	.long	1024                    # 0x400
-	.long	0                       # 0x0
+	.long	9                               # 0x9
+	.long	4                               # 0x4
+	.long	1                               # 0x1
+	.long	1024                            # 0x400
+	.long	0                               # 0x0
+	.size	blocked_map, 20
 
-
+	.addrsig
+	.addrsig_sym xdp_prog_main
+	.addrsig_sym blocked_map

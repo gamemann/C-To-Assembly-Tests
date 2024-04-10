@@ -15,43 +15,43 @@ xdp_prog_main:
 	movq	-56(%rbp), %rax
 	movl	(%rax), %eax
 	movl	%eax, %eax
-	movq	%rax, -40(%rbp)
+	movq	%rax, -8(%rbp)
 	movq	-56(%rbp), %rax
 	movl	4(%rax), %eax
 	movl	%eax, %eax
-	movq	%rax, -32(%rbp)
-	movq	-40(%rbp), %rax
+	movq	%rax, -16(%rbp)
+	movq	-8(%rbp), %rax
 	movq	%rax, -24(%rbp)
 	movq	-24(%rbp), %rax
 	addq	$14, %rax
-	cmpq	%rax, -32(%rbp)
+	cmpq	%rax, -16(%rbp)
 	jnb	.L2
 	movl	$1, %eax
 	jmp	.L3
 .L2:
-	movq	-40(%rbp), %rax
+	movq	-8(%rbp), %rax
 	addq	$14, %rax
-	movq	%rax, -16(%rbp)
-	movq	-16(%rbp), %rax
+	movq	%rax, -32(%rbp)
+	movq	-32(%rbp), %rax
 	addq	$20, %rax
-	cmpq	%rax, -32(%rbp)
+	cmpq	%rax, -16(%rbp)
 	jnb	.L4
 	movl	$1, %eax
 	jmp	.L3
 .L4:
-	movq	-16(%rbp), %rax
+	movq	-32(%rbp), %rax
 	movzbl	(%rax), %eax
 	andl	$15, %eax
 	movzbl	%al, %eax
 	sall	$2, %eax
 	cltq
 	leaq	14(%rax), %rdx
-	movq	-40(%rbp), %rax
-	addq	%rdx, %rax
-	movq	%rax, -8(%rbp)
 	movq	-8(%rbp), %rax
+	addq	%rdx, %rax
+	movq	%rax, -40(%rbp)
+	movq	-40(%rbp), %rax
 	addq	$20, %rax
-	cmpq	%rax, -32(%rbp)
+	cmpq	%rax, -16(%rbp)
 	jnb	.L5
 	movl	$1, %eax
 	jmp	.L3
@@ -59,43 +59,43 @@ xdp_prog_main:
 	movq	-56(%rbp), %rax
 	movl	(%rax), %eax
 	movl	%eax, %eax
-	movq	%rax, -40(%rbp)
+	movq	%rax, -8(%rbp)
 	movq	-56(%rbp), %rax
 	movl	4(%rax), %eax
 	movl	%eax, %eax
-	movq	%rax, -32(%rbp)
-	movq	-40(%rbp), %rax
+	movq	%rax, -16(%rbp)
+	movq	-8(%rbp), %rax
 	movq	%rax, -24(%rbp)
 	movq	-24(%rbp), %rax
 	addq	$14, %rax
-	cmpq	%rax, -32(%rbp)
+	cmpq	%rax, -16(%rbp)
 	jnb	.L6
 	movl	$1, %eax
 	jmp	.L3
 .L6:
-	movq	-40(%rbp), %rax
+	movq	-8(%rbp), %rax
 	addq	$14, %rax
-	movq	%rax, -16(%rbp)
-	movq	-16(%rbp), %rax
+	movq	%rax, -32(%rbp)
+	movq	-32(%rbp), %rax
 	addq	$20, %rax
-	cmpq	%rax, -32(%rbp)
+	cmpq	%rax, -16(%rbp)
 	jnb	.L7
 	movl	$1, %eax
 	jmp	.L3
 .L7:
-	movq	-16(%rbp), %rax
+	movq	-32(%rbp), %rax
 	movzbl	(%rax), %eax
 	andl	$15, %eax
 	movzbl	%al, %eax
 	sall	$2, %eax
 	cltq
 	leaq	14(%rax), %rdx
-	movq	-40(%rbp), %rax
-	addq	%rdx, %rax
-	movq	%rax, -8(%rbp)
 	movq	-8(%rbp), %rax
+	addq	%rdx, %rax
+	movq	%rax, -40(%rbp)
+	movq	-40(%rbp), %rax
 	addq	$20, %rax
-	cmpq	%rax, -32(%rbp)
+	cmpq	%rax, -16(%rbp)
 	jnb	.L8
 	movl	$1, %eax
 	jmp	.L3
@@ -108,5 +108,5 @@ xdp_prog_main:
 	.cfi_endproc
 .LFE30:
 	.size	xdp_prog_main, .-xdp_prog_main
-	.ident	"GCC: (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0"
+	.ident	"GCC: (Debian 12.2.0-14) 12.2.0"
 	.section	.note.GNU-stack,"",@progbits

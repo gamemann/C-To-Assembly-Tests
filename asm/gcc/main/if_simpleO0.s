@@ -18,7 +18,8 @@ main:
 	movl	$5, -4(%rbp)
 	cmpl	$5, -4(%rbp)
 	jne	.L2
-	leaq	.LC0(%rip), %rdi
+	leaq	.LC0(%rip), %rax
+	movq	%rax, %rdi
 	call	puts@PLT
 .L2:
 	movl	$0, %eax
@@ -28,5 +29,5 @@ main:
 	.cfi_endproc
 .LFE0:
 	.size	main, .-main
-	.ident	"GCC: (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0"
+	.ident	"GCC: (Debian 12.2.0-14) 12.2.0"
 	.section	.note.GNU-stack,"",@progbits

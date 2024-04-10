@@ -4,34 +4,24 @@
 .LC0:
 	.string	"Value is %llu.\n."
 	.section	.text.startup,"ax",@progbits
-	.p2align 4,,15
+	.p2align 4
 	.globl	main
 	.type	main, @function
 main:
-.LFB23:
+.LFB11:
 	.cfi_startproc
-	subq	$24, %rsp
-	.cfi_def_cfa_offset 32
-	leaq	.LC0(%rip), %rsi
-	movabsq	$8128420482184, %rdx
-	movq	%fs:40, %rax
-	movq	%rax, 8(%rsp)
+	subq	$8, %rsp
+	.cfi_def_cfa_offset 16
+	leaq	.LC0(%rip), %rdi
 	xorl	%eax, %eax
-	movl	$1, %edi
-	call	__printf_chk@PLT
-	movq	8(%rsp), %rcx
-	xorq	%fs:40, %rcx
-	jne	.L5
+	movabsq	$8128420482184, %rsi
+	call	printf@PLT
 	xorl	%eax, %eax
-	addq	$24, %rsp
-	.cfi_remember_state
+	addq	$8, %rsp
 	.cfi_def_cfa_offset 8
 	ret
-.L5:
-	.cfi_restore_state
-	call	__stack_chk_fail@PLT
 	.cfi_endproc
-.LFE23:
+.LFE11:
 	.size	main, .-main
-	.ident	"GCC: (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0"
+	.ident	"GCC: (Debian 12.2.0-14) 12.2.0"
 	.section	.note.GNU-stack,"",@progbits

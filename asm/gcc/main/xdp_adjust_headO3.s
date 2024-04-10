@@ -1,7 +1,7 @@
 	.file	"xdp_adjust_head.c"
 	.text
 	.section	xdp_prog,"ax",@progbits
-	.p2align 4,,15
+	.p2align 4
 	.globl	xdp_prog_main
 	.type	xdp_prog_main, @function
 xdp_prog_main:
@@ -16,9 +16,8 @@ xdp_prog_main:
 	cmpq	%rcx, %rdx
 	jb	.L7
 	movzbl	14(%rax), %ecx
-	salq	$2, %rcx
-	andl	$60, %ecx
-	leaq	34(%rax,%rcx), %rax
+	andl	$15, %ecx
+	leaq	34(%rax,%rcx,4), %rax
 	cmpq	%rax, %rdx
 	jb	.L7
 	pushq	%rbx
@@ -41,9 +40,8 @@ xdp_prog_main:
 	cmpq	%rcx, %rdx
 	jb	.L4
 	movzbl	14(%rax), %ecx
-	salq	$2, %rcx
-	andl	$60, %ecx
-	leaq	34(%rax,%rcx), %rax
+	andl	$15, %ecx
+	leaq	34(%rax,%rcx,4), %rax
 	cmpq	%rax, %rdx
 	jb	.L4
 	movl	$2, %eax
@@ -69,5 +67,5 @@ xdp_prog_main:
 	.cfi_endproc
 .LFE30:
 	.size	xdp_prog_main, .-xdp_prog_main
-	.ident	"GCC: (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0"
+	.ident	"GCC: (Debian 12.2.0-14) 12.2.0"
 	.section	.note.GNU-stack,"",@progbits

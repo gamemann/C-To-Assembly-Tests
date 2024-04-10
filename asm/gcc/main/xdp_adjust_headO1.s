@@ -12,19 +12,19 @@ xdp_prog_main:
 	movl	$1, %eax
 	cmpq	%rsi, %rcx
 	jb	.L11
-	leaq	34(%rdx), %rsi
-	cmpq	%rsi, %rcx
-	jb	.L11
-	movzbl	14(%rdx), %eax
-	salq	$2, %rax
-	andl	$60, %eax
-	leaq	34(%rdx,%rax), %rax
-	cmpq	%rax, %rcx
-	jb	.L5
 	pushq	%rbx
 	.cfi_def_cfa_offset 16
 	.cfi_offset 3, -16
 	movq	%rdi, %rbx
+	leaq	34(%rdx), %rsi
+	cmpq	%rsi, %rcx
+	jb	.L1
+	movzbl	14(%rdx), %eax
+	andl	$15, %eax
+	leaq	34(%rdx,%rax,4), %rdx
+	movl	$1, %eax
+	cmpq	%rdx, %rcx
+	jb	.L1
 	movl	$14, %esi
 	movl	$44, %eax
 	call	*%rax
@@ -42,9 +42,8 @@ xdp_prog_main:
 	cmpq	%rsi, %rcx
 	jb	.L1
 	movzbl	14(%rdx), %eax
-	salq	$2, %rax
-	andl	$60, %eax
-	leaq	34(%rdx,%rax), %rax
+	andl	$15, %eax
+	leaq	34(%rdx,%rax,4), %rax
 	cmpq	%rax, %rcx
 	setnb	%al
 	movzbl	%al, %eax
@@ -53,14 +52,11 @@ xdp_prog_main:
 	popq	%rbx
 	.cfi_def_cfa_offset 8
 	ret
-.L5:
-	.cfi_restore 3
-	movl	$1, %eax
-	ret
 .L11:
-	rep ret
+	.cfi_restore 3
+	ret
 	.cfi_endproc
 .LFE30:
 	.size	xdp_prog_main, .-xdp_prog_main
-	.ident	"GCC: (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0"
+	.ident	"GCC: (Debian 12.2.0-14) 12.2.0"
 	.section	.note.GNU-stack,"",@progbits

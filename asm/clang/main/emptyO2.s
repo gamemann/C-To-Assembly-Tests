@@ -1,6 +1,6 @@
 	.text
 	.file	"empty.c"
-	.globl	main                    # -- Begin function main
+	.globl	main                            # -- Begin function main
 	.p2align	4, 0x90
 	.type	main,@function
 main:                                   # @main
@@ -12,6 +12,6 @@ main:                                   # @main
 	.size	main, .Lfunc_end0-main
 	.cfi_endproc
                                         # -- End function
-
-	.ident	"clang version 6.0.0-1ubuntu2 (tags/RELEASE_600/final)"
+	.ident	"Debian clang version 14.0.6"
 	.section	".note.GNU-stack","",@progbits
+	.addrsig

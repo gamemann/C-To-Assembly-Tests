@@ -26,7 +26,8 @@ main:
 .L3:
 	movq	stdout(%rip), %rcx
 	movl	%eax, %edx
-	leaq	.LC0(%rip), %rsi
+	leaq	.LC0(%rip), %rax
+	movq	%rax, %rsi
 	movq	%rcx, %rdi
 	movl	$0, %eax
 	call	fprintf@PLT
@@ -37,5 +38,5 @@ main:
 	.cfi_endproc
 .LFE0:
 	.size	main, .-main
-	.ident	"GCC: (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0"
+	.ident	"GCC: (Debian 12.2.0-14) 12.2.0"
 	.section	.note.GNU-stack,"",@progbits

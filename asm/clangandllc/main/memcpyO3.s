@@ -1,6 +1,6 @@
 	.text
 	.file	"memcpy.c"
-	.globl	main                    # -- Begin function main
+	.globl	main                            # -- Begin function main
 	.p2align	4, 0x90
 	.type	main,@function
 main:                                   # @main
@@ -16,18 +16,18 @@ main:                                   # @main
 	movq	%rax, -12(%rbp)
 	xorl	%eax, %eax
 	popq	%rbp
+	.cfi_def_cfa %rsp, 8
 	retq
 .Lfunc_end0:
 	.size	main, .Lfunc_end0-main
 	.cfi_endproc
                                         # -- End function
-	.type	bytes,@object           # @bytes
+	.type	bytes,@object                   # @bytes
 	.section	.rodata,"a",@progbits
 	.globl	bytes
 bytes:
 	.ascii	"\000\377\377\377U\023T\006"
 	.size	bytes, 8
 
-
-	.ident	"clang version 6.0.0-1ubuntu2 (tags/RELEASE_600/final)"
+	.ident	"Debian clang version 14.0.6"
 	.section	".note.GNU-stack","",@progbits

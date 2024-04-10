@@ -12,7 +12,7 @@ bpf_map_lookup_elem:
 bpf_map_update_elem:
 	.quad	2
 	.globl	blocked_map
-	.section	maps,"aw",@progbits
+	.section	maps,"aw"
 	.align 16
 	.type	blocked_map, @object
 	.size	blocked_map, 20
@@ -35,32 +35,29 @@ xdp_prog_main:
 	.cfi_def_cfa_register 6
 	subq	$80, %rsp
 	movq	%rdi, -72(%rbp)
-	movq	%fs:40, %rax
-	movq	%rax, -8(%rbp)
-	xorl	%eax, %eax
 	movq	-72(%rbp), %rax
 	movl	(%rax), %eax
 	movl	%eax, %eax
-	movq	%rax, -56(%rbp)
+	movq	%rax, -8(%rbp)
 	movq	-72(%rbp), %rax
 	movl	4(%rax), %eax
 	movl	%eax, %eax
-	movq	%rax, -48(%rbp)
-	movq	-56(%rbp), %rax
-	movq	%rax, -40(%rbp)
-	movq	-40(%rbp), %rax
+	movq	%rax, -16(%rbp)
+	movq	-8(%rbp), %rax
+	movq	%rax, -24(%rbp)
+	movq	-24(%rbp), %rax
 	addq	$14, %rax
-	cmpq	%rax, -48(%rbp)
+	cmpq	%rax, -16(%rbp)
 	jnb	.L2
 	movl	$1, %eax
 	jmp	.L3
 .L2:
-	movq	-56(%rbp), %rax
+	movq	-8(%rbp), %rax
 	addq	$14, %rax
 	movq	%rax, -32(%rbp)
 	movq	-32(%rbp), %rax
 	addq	$20, %rax
-	cmpq	%rax, -48(%rbp)
+	cmpq	%rax, -16(%rbp)
 	jnb	.L4
 	movl	$1, %eax
 	jmp	.L3
@@ -69,10 +66,11 @@ xdp_prog_main:
 	movq	-32(%rbp), %rdx
 	addq	$12, %rdx
 	movq	%rdx, %rsi
-	leaq	blocked_map(%rip), %rdi
+	leaq	blocked_map(%rip), %rdx
+	movq	%rdx, %rdi
 	call	*%rax
-	movq	%rax, -24(%rbp)
-	cmpq	$0, -24(%rbp)
+	movq	%rax, -40(%rbp)
+	cmpq	$0, -40(%rbp)
 	je	.L5
 	movl	$1, %eax
 	jmp	.L3
@@ -84,43 +82,40 @@ xdp_prog_main:
 	sall	$2, %eax
 	cltq
 	leaq	14(%rax), %rdx
-	movq	-56(%rbp), %rax
+	movq	-8(%rbp), %rax
 	addq	%rdx, %rax
-	movq	%rax, -16(%rbp)
-	movq	-16(%rbp), %rax
+	movq	%rax, -48(%rbp)
+	movq	-48(%rbp), %rax
 	addq	$20, %rax
-	cmpq	%rax, -48(%rbp)
+	cmpq	%rax, -16(%rbp)
 	jnb	.L6
 	movl	$1, %eax
 	jmp	.L3
 .L6:
-	movq	-16(%rbp), %rax
+	movq	-48(%rbp), %rax
 	movzwl	2(%rax), %eax
 	cmpw	$-28641, %ax
 	jne	.L7
-	movb	$1, -57(%rbp)
-	movq	bpf_map_update_elem(%rip), %rax
-	movq	-32(%rbp), %rdx
-	leaq	12(%rdx), %rsi
-	leaq	-57(%rbp), %rdx
+	movb	$1, -49(%rbp)
+	movq	bpf_map_update_elem(%rip), %r8
+	movq	-32(%rbp), %rax
+	leaq	12(%rax), %rsi
+	leaq	-49(%rbp), %rax
 	movl	$0, %ecx
-	leaq	blocked_map(%rip), %rdi
-	call	*%rax
+	movq	%rax, %rdx
+	leaq	blocked_map(%rip), %rax
+	movq	%rax, %rdi
+	call	*%r8
 	movl	$1, %eax
 	jmp	.L3
 .L7:
 	movl	$2, %eax
 .L3:
-	movq	-8(%rbp), %rcx
-	xorq	%fs:40, %rcx
-	je	.L8
-	call	__stack_chk_fail@PLT
-.L8:
 	leave
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
 .LFE30:
 	.size	xdp_prog_main, .-xdp_prog_main
-	.ident	"GCC: (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0"
+	.ident	"GCC: (Debian 12.2.0-14) 12.2.0"
 	.section	.note.GNU-stack,"",@progbits

@@ -28,37 +28,43 @@ main:
 	movl	$5, -4(%rbp)
 	cmpl	$0, -4(%rbp)
 	jne	.L2
-	leaq	.LC0(%rip), %rdi
+	leaq	.LC0(%rip), %rax
+	movq	%rax, %rdi
 	call	puts@PLT
 	jmp	.L3
 .L2:
 	cmpl	$1, -4(%rbp)
 	jne	.L4
-	leaq	.LC1(%rip), %rdi
+	leaq	.LC1(%rip), %rax
+	movq	%rax, %rdi
 	call	puts@PLT
 	jmp	.L3
 .L4:
 	cmpl	$2, -4(%rbp)
 	jne	.L5
-	leaq	.LC2(%rip), %rdi
+	leaq	.LC2(%rip), %rax
+	movq	%rax, %rdi
 	call	puts@PLT
 	jmp	.L3
 .L5:
 	cmpl	$3, -4(%rbp)
 	jne	.L6
-	leaq	.LC3(%rip), %rdi
+	leaq	.LC3(%rip), %rax
+	movq	%rax, %rdi
 	call	puts@PLT
 	jmp	.L3
 .L6:
 	cmpl	$4, -4(%rbp)
 	jne	.L7
-	leaq	.LC4(%rip), %rdi
+	leaq	.LC4(%rip), %rax
+	movq	%rax, %rdi
 	call	puts@PLT
 	jmp	.L3
 .L7:
 	cmpl	$5, -4(%rbp)
 	jne	.L3
-	leaq	.LC5(%rip), %rdi
+	leaq	.LC5(%rip), %rax
+	movq	%rax, %rdi
 	call	puts@PLT
 .L3:
 	movl	$0, %eax
@@ -68,5 +74,5 @@ main:
 	.cfi_endproc
 .LFE0:
 	.size	main, .-main
-	.ident	"GCC: (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0"
+	.ident	"GCC: (Debian 12.2.0-14) 12.2.0"
 	.section	.note.GNU-stack,"",@progbits

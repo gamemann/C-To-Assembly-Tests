@@ -11,5 +11,5 @@ xdp_prog_main:
 	.cfi_endproc
 .LFE0:
 	.size	xdp_prog_main, .-xdp_prog_main
-	.ident	"GCC: (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0"
+	.ident	"GCC: (Debian 12.2.0-14) 12.2.0"
 	.section	.note.GNU-stack,"",@progbits

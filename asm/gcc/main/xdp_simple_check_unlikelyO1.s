@@ -6,19 +6,18 @@
 xdp_prog_main:
 .LFB30:
 	.cfi_startproc
-	movl	(%rdi), %edx
-	movl	4(%rdi), %ecx
-	leaq	14(%rdx), %rax
-	cmpq	%rax, %rcx
+	movl	(%rdi), %eax
+	movl	4(%rdi), %edx
+	leaq	14(%rax), %rcx
+	cmpq	%rcx, %rdx
 	jb	.L3
-	leaq	34(%rdx), %rax
-	cmpq	%rax, %rcx
+	leaq	34(%rax), %rcx
+	cmpq	%rcx, %rdx
 	jb	.L4
-	movzbl	14(%rdx), %eax
-	salq	$2, %rax
-	andl	$60, %eax
-	leaq	34(%rdx,%rax), %rax
-	cmpq	%rax, %rcx
+	movzbl	14(%rax), %ecx
+	andl	$15, %ecx
+	leaq	34(%rax,%rcx,4), %rax
+	cmpq	%rax, %rdx
 	setnb	%al
 	movzbl	%al, %eax
 	addl	$1, %eax
@@ -32,5 +31,5 @@ xdp_prog_main:
 	.cfi_endproc
 .LFE30:
 	.size	xdp_prog_main, .-xdp_prog_main
-	.ident	"GCC: (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0"
+	.ident	"GCC: (Debian 12.2.0-14) 12.2.0"
 	.section	.note.GNU-stack,"",@progbits

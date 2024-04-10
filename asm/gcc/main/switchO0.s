@@ -32,43 +32,49 @@ main:
 	leaq	0(,%rax,4), %rdx
 	leaq	.L4(%rip), %rax
 	movl	(%rdx,%rax), %eax
-	movslq	%eax, %rdx
-	leaq	.L4(%rip), %rax
+	cltq
+	leaq	.L4(%rip), %rdx
 	addq	%rdx, %rax
 	jmp	*%rax
 	.section	.rodata
 	.align 4
 	.align 4
 .L4:
-	.long	.L3-.L4
-	.long	.L5-.L4
-	.long	.L6-.L4
-	.long	.L7-.L4
-	.long	.L8-.L4
 	.long	.L9-.L4
+	.long	.L8-.L4
+	.long	.L7-.L4
+	.long	.L6-.L4
+	.long	.L5-.L4
+	.long	.L3-.L4
 	.text
-.L3:
-	leaq	.LC0(%rip), %rdi
-	call	puts@PLT
-	jmp	.L2
-.L5:
-	leaq	.LC1(%rip), %rdi
-	call	puts@PLT
-	jmp	.L2
-.L6:
-	leaq	.LC2(%rip), %rdi
-	call	puts@PLT
-	jmp	.L2
-.L7:
-	leaq	.LC3(%rip), %rdi
+.L9:
+	leaq	.LC0(%rip), %rax
+	movq	%rax, %rdi
 	call	puts@PLT
 	jmp	.L2
 .L8:
-	leaq	.LC4(%rip), %rdi
+	leaq	.LC1(%rip), %rax
+	movq	%rax, %rdi
 	call	puts@PLT
 	jmp	.L2
-.L9:
-	leaq	.LC5(%rip), %rdi
+.L7:
+	leaq	.LC2(%rip), %rax
+	movq	%rax, %rdi
+	call	puts@PLT
+	jmp	.L2
+.L6:
+	leaq	.LC3(%rip), %rax
+	movq	%rax, %rdi
+	call	puts@PLT
+	jmp	.L2
+.L5:
+	leaq	.LC4(%rip), %rax
+	movq	%rax, %rdi
+	call	puts@PLT
+	jmp	.L2
+.L3:
+	leaq	.LC5(%rip), %rax
+	movq	%rax, %rdi
 	call	puts@PLT
 	nop
 .L2:
@@ -79,5 +85,5 @@ main:
 	.cfi_endproc
 .LFE0:
 	.size	main, .-main
-	.ident	"GCC: (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0"
+	.ident	"GCC: (Debian 12.2.0-14) 12.2.0"
 	.section	.note.GNU-stack,"",@progbits
