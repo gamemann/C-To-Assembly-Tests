@@ -1,0 +1,37 @@
+
+../asm/objdump/xdp_drop_port8080O1.o:	file format elf64-bpf
+
+Disassembly of section xdp_prog:
+
+0000000000000000 <xdp_prog_main>:
+; {
+       0:	r0 = 1
+;     void *data_end = (void *)(long)ctx->data_end;
+       1:	r2 = *(u32 *)(r1 + 4)
+;     void *data = (void *)(long)ctx->data;
+       2:	r3 = *(u32 *)(r1 + 0)
+;     if (eth + 1 > (struct ethhdr *)data_end)
+       3:	r1 = r3
+       4:	r1 += 14
+       5:	if r1 > r2 goto +13 <LBB0_5>
+;     if (iph + 1 > (struct iphdr *)data_end)
+       6:	r3 += 34
+       7:	if r3 > r2 goto +11 <LBB0_5>
+;     struct tcphdr *tcph = data + sizeof(struct ethhdr) + (iph->ihl * 4);
+       8:	r3 = *(u8 *)(r1 + 0)
+       9:	r3 <<= 2
+      10:	r3 &= 60
+      11:	r1 += r3
+;     if (tcph + 1 > (struct tcphdr *)data_end)
+      12:	r3 = r1
+      13:	r3 += 20
+      14:	if r3 > r2 goto +4 <LBB0_5>
+;     if (tcph->dest == htons(8080))
+      15:	r1 = *(u16 *)(r1 + 2)
+      16:	r0 = 1
+      17:	if r1 == 36895 goto +1 <LBB0_5>
+      18:	r0 = 2
+
+0000000000000098 <LBB0_5>:
+; }
+      19:	exit

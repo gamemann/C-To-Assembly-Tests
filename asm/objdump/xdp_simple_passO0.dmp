@@ -1,0 +1,11 @@
+
+../asm/objdump/xdp_simple_passO0.o:	file format elf64-bpf
+
+Disassembly of section xdp_prog:
+
+0000000000000000 <xdp_prog_main>:
+; {
+       0:	*(u64 *)(r10 - 8) = r1
+       1:	r0 = 2
+;     return XDP_PASS;
+       2:	exit

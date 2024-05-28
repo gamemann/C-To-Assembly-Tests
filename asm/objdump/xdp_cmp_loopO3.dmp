@@ -1,0 +1,51 @@
+
+../asm/objdump/xdp_cmp_loopO3.o:	file format elf64-bpf
+
+Disassembly of section xdp_prog:
+
+0000000000000000 <xdp_prog_main>:
+;     void *data_end = (void *)(long)ctx->data_end;
+       0:	r2 = *(u32 *)(r1 + 4)
+;     void *data = (void *)(long)ctx->data;
+       1:	r3 = *(u32 *)(r1 + 0)
+;     if (eth + 1 > (struct ethhdr *)data_end)
+       2:	r1 = r3
+       3:	r1 += 14
+       4:	r0 = 1
+       5:	if r1 > r2 goto +25 <LBB0_10>
+;     if (iph + 1 > (struct iphdr *)data_end)
+       6:	r3 += 34
+       7:	r0 = 1
+;     if (iph + 1 > (struct iphdr *)data_end)
+       8:	if r3 > r2 goto +22 <LBB0_10>
+;     struct udphdr *udph = data + sizeof(struct ethhdr) + (iph->ihl * 4);
+       9:	r3 = *(u8 *)(r1 + 0)
+      10:	r3 <<= 2
+      11:	r3 &= 60
+      12:	r1 += r3
+;     if (udph + 1 > (struct udphdr *)data_end)
+      13:	r1 += 8
+      14:	r0 = 1
+;     if (udph + 1 > (struct udphdr *)data_end)
+      15:	if r1 > r2 goto +15 <LBB0_10>
+      16:	r0 = 2
+;     if (pl + sizeof(payload) + 1 > (__u8 *)data_end)
+      17:	r3 = r1
+      18:	r3 += 6
+      19:	if r3 > r2 goto +11 <LBB0_10>
+;         if (pl[i] != payload[i])
+      20:	r2 = *(u8 *)(r1 + 0)
+      21:	if r2 != 1 goto +9 <LBB0_10>
+      22:	r2 = *(u8 *)(r1 + 1)
+      23:	if r2 != 2 goto +7 <LBB0_10>
+      24:	r2 = *(u8 *)(r1 + 2)
+      25:	if r2 != 3 goto +5 <LBB0_10>
+      26:	r2 = *(u8 *)(r1 + 3)
+      27:	if r2 != 4 goto +3 <LBB0_10>
+      28:	r1 = *(u8 *)(r1 + 4)
+      29:	if r1 != 5 goto +1 <LBB0_10>
+      30:	r0 = 1
+
+00000000000000f8 <LBB0_10>:
+; }
+      31:	exit

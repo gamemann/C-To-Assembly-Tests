@@ -1,0 +1,33 @@
+
+../asm/objdump/xdp_simple_check_unlikelyO1.o:	file format elf64-bpf
+
+Disassembly of section xdp_prog:
+
+0000000000000000 <xdp_prog_main>:
+; {
+       0:	r0 = 1
+;     void *data_end = (void *)(long)ctx->data_end;
+       1:	r2 = *(u32 *)(r1 + 4)
+;     void *data = (void *)(long)ctx->data;
+       2:	r3 = *(u32 *)(r1 + 0)
+;     if (unlikely(eth + 1 > (struct ethhdr *)data_end))
+       3:	r1 = r3
+       4:	r1 += 14
+       5:	if r1 > r2 goto +10 <LBB0_4>
+;     if (unlikely(iph + 1 > (struct iphdr *)data_end))
+       6:	r3 += 34
+       7:	if r3 > r2 goto +8 <LBB0_4>
+;     struct tcphdr *tcph = data + sizeof(struct ethhdr) + (iph->ihl * 4);
+       8:	r3 = *(u8 *)(r1 + 0)
+       9:	r3 <<= 2
+      10:	r3 &= 60
+      11:	r1 += r3
+;     if (unlikely(tcph + 1 > (struct tcphdr *)data_end))
+      12:	r1 += 20
+      13:	r0 = 1
+      14:	if r1 > r2 goto +1 <LBB0_4>
+      15:	r0 = 2
+
+0000000000000080 <LBB0_4>:
+; }
+      16:	exit

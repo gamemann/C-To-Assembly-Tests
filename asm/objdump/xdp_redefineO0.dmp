@@ -1,0 +1,149 @@
+
+../asm/objdump/xdp_redefineO0.o:	file format elf64-bpf
+
+Disassembly of section xdp_prog:
+
+0000000000000000 <xdp_prog_main>:
+; {
+       0:	*(u64 *)(r10 - 16) = r1
+;     void *data = (void *)(long)ctx->data;
+       1:	r1 = *(u64 *)(r10 - 16)
+       2:	r1 = *(u32 *)(r1 + 0)
+       3:	*(u64 *)(r10 - 24) = r1
+;     void *data_end = (void *)(long)ctx->data_end;
+       4:	r1 = *(u64 *)(r10 - 16)
+       5:	r1 = *(u32 *)(r1 + 4)
+       6:	*(u64 *)(r10 - 32) = r1
+;     struct ethhdr *eth = data;
+       7:	r1 = *(u64 *)(r10 - 24)
+       8:	*(u64 *)(r10 - 40) = r1
+;     if (eth + 1 > (struct ethhdr *)data_end)
+       9:	r2 = *(u64 *)(r10 - 40)
+      10:	r2 += 14
+      11:	r1 = *(u64 *)(r10 - 32)
+      12:	if r1 >= r2 goto +4 <LBB0_2>
+      13:	goto +0 <LBB0_1>
+
+0000000000000070 <LBB0_1>:
+      14:	r1 = 1
+;         return XDP_DROP;
+      15:	*(u32 *)(r10 - 4) = r1
+      16:	goto +73 <LBB0_13>
+
+0000000000000088 <LBB0_2>:
+;     struct iphdr *iph = data + sizeof(struct ethhdr);
+      17:	r1 = *(u64 *)(r10 - 24)
+      18:	r1 += 14
+      19:	*(u64 *)(r10 - 48) = r1
+;     if (iph + 1 > (struct iphdr *)data_end)
+      20:	r2 = *(u64 *)(r10 - 48)
+      21:	r2 += 20
+      22:	r1 = *(u64 *)(r10 - 32)
+      23:	if r1 >= r2 goto +4 <LBB0_4>
+      24:	goto +0 <LBB0_3>
+
+00000000000000c8 <LBB0_3>:
+      25:	r1 = 1
+;         return XDP_DROP;
+      26:	*(u32 *)(r10 - 4) = r1
+      27:	goto +62 <LBB0_13>
+
+00000000000000e0 <LBB0_4>:
+;     struct tcphdr *tcph = data + sizeof(struct ethhdr) + (iph->ihl * 4);
+      28:	r1 = *(u64 *)(r10 - 24)
+      29:	r2 = *(u64 *)(r10 - 48)
+      30:	r2 = *(u8 *)(r2 + 0)
+      31:	r2 &= 15
+      32:	r2 <<= 2
+      33:	r1 += r2
+      34:	r1 += 14
+      35:	*(u64 *)(r10 - 56) = r1
+;     if (tcph + 1 > (struct tcphdr *)data_end)
+      36:	r2 = *(u64 *)(r10 - 56)
+      37:	r2 += 20
+      38:	r1 = *(u64 *)(r10 - 32)
+      39:	if r1 >= r2 goto +4 <LBB0_6>
+      40:	goto +0 <LBB0_5>
+
+0000000000000148 <LBB0_5>:
+      41:	r1 = 1
+;         return XDP_DROP;
+      42:	*(u32 *)(r10 - 4) = r1
+      43:	goto +46 <LBB0_13>
+
+0000000000000160 <LBB0_6>:
+;     data = (void *)(long)ctx->data;
+      44:	r1 = *(u64 *)(r10 - 16)
+      45:	r1 = *(u32 *)(r1 + 0)
+      46:	*(u64 *)(r10 - 24) = r1
+;     data_end = (void *)(long)ctx->data_end;
+      47:	r1 = *(u64 *)(r10 - 16)
+      48:	r1 = *(u32 *)(r1 + 4)
+      49:	*(u64 *)(r10 - 32) = r1
+;     eth = data;
+      50:	r1 = *(u64 *)(r10 - 24)
+      51:	*(u64 *)(r10 - 40) = r1
+;     if (eth + 1 > (struct ethhdr *)data_end)
+      52:	r2 = *(u64 *)(r10 - 40)
+      53:	r2 += 14
+      54:	r1 = *(u64 *)(r10 - 32)
+      55:	if r1 >= r2 goto +4 <LBB0_8>
+      56:	goto +0 <LBB0_7>
+
+00000000000001c8 <LBB0_7>:
+      57:	r1 = 1
+;         return XDP_DROP;
+      58:	*(u32 *)(r10 - 4) = r1
+      59:	goto +30 <LBB0_13>
+
+00000000000001e0 <LBB0_8>:
+;     iph = data + sizeof(struct ethhdr);
+      60:	r1 = *(u64 *)(r10 - 24)
+      61:	r1 += 14
+      62:	*(u64 *)(r10 - 48) = r1
+;     if (iph + 1 > (struct iphdr *)data_end)
+      63:	r2 = *(u64 *)(r10 - 48)
+      64:	r2 += 20
+      65:	r1 = *(u64 *)(r10 - 32)
+      66:	if r1 >= r2 goto +4 <LBB0_10>
+      67:	goto +0 <LBB0_9>
+
+0000000000000220 <LBB0_9>:
+      68:	r1 = 1
+;         return XDP_DROP;
+      69:	*(u32 *)(r10 - 4) = r1
+      70:	goto +19 <LBB0_13>
+
+0000000000000238 <LBB0_10>:
+;     tcph = data + sizeof(struct ethhdr) + (iph->ihl * 4);
+      71:	r1 = *(u64 *)(r10 - 24)
+      72:	r2 = *(u64 *)(r10 - 48)
+      73:	r2 = *(u8 *)(r2 + 0)
+      74:	r2 &= 15
+      75:	r2 <<= 2
+      76:	r1 += r2
+      77:	r1 += 14
+      78:	*(u64 *)(r10 - 56) = r1
+;     if (tcph + 1 > (struct tcphdr *)data_end)
+      79:	r2 = *(u64 *)(r10 - 56)
+      80:	r2 += 20
+      81:	r1 = *(u64 *)(r10 - 32)
+      82:	if r1 >= r2 goto +4 <LBB0_12>
+      83:	goto +0 <LBB0_11>
+
+00000000000002a0 <LBB0_11>:
+      84:	r1 = 1
+;         return XDP_DROP;
+      85:	*(u32 *)(r10 - 4) = r1
+      86:	goto +3 <LBB0_13>
+
+00000000000002b8 <LBB0_12>:
+      87:	r1 = 2
+;     return XDP_PASS;
+      88:	*(u32 *)(r10 - 4) = r1
+      89:	goto +0 <LBB0_13>
+
+00000000000002d0 <LBB0_13>:
+; }
+      90:	r0 = *(u32 *)(r10 - 4)
+      91:	exit

@@ -1,0 +1,132 @@
+
+../asm/objdump/xdp_block_port8080O0.o:	file format elf64-bpf
+
+Disassembly of section xdp_prog:
+
+0000000000000000 <xdp_prog_main>:
+; {
+       0:	*(u64 *)(r10 - 16) = r1
+;     void *data = (void *)(long)ctx->data;
+       1:	r1 = *(u64 *)(r10 - 16)
+       2:	r1 = *(u32 *)(r1 + 0)
+       3:	*(u64 *)(r10 - 24) = r1
+;     void *data_end = (void *)(long)ctx->data_end;
+       4:	r1 = *(u64 *)(r10 - 16)
+       5:	r1 = *(u32 *)(r1 + 4)
+       6:	*(u64 *)(r10 - 32) = r1
+;     struct ethhdr *eth = data;
+       7:	r1 = *(u64 *)(r10 - 24)
+       8:	*(u64 *)(r10 - 40) = r1
+;     if (eth + 1 > (struct ethhdr *)data_end)
+       9:	r2 = *(u64 *)(r10 - 40)
+      10:	r2 += 14
+      11:	r1 = *(u64 *)(r10 - 32)
+      12:	if r1 >= r2 goto +4 <LBB0_2>
+      13:	goto +0 <LBB0_1>
+
+0000000000000070 <LBB0_1>:
+      14:	r1 = 1
+;         return XDP_DROP;
+      15:	*(u32 *)(r10 - 4) = r1
+      16:	goto +66 <LBB0_11>
+
+0000000000000088 <LBB0_2>:
+;     struct iphdr *iph = data + sizeof(struct ethhdr);
+      17:	r1 = *(u64 *)(r10 - 24)
+      18:	r1 += 14
+      19:	*(u64 *)(r10 - 48) = r1
+;     if (iph + 1 > (struct iphdr *)data_end)
+      20:	r2 = *(u64 *)(r10 - 48)
+      21:	r2 += 20
+      22:	r1 = *(u64 *)(r10 - 32)
+      23:	if r1 >= r2 goto +4 <LBB0_4>
+      24:	goto +0 <LBB0_3>
+
+00000000000000c8 <LBB0_3>:
+      25:	r1 = 1
+;         return XDP_DROP;
+      26:	*(u32 *)(r10 - 4) = r1
+      27:	goto +55 <LBB0_11>
+
+00000000000000e0 <LBB0_4>:
+;     __u8 *blocked = bpf_map_lookup_elem(&blocked_map, &iph->saddr);
+      28:	r1 = 0 ll
+      30:	r3 = *(u64 *)(r1 + 0)
+      31:	r2 = *(u64 *)(r10 - 48)
+      32:	r2 += 12
+      33:	r1 = 0 ll
+      35:	callx r3
+      36:	*(u64 *)(r10 - 56) = r0
+;     if (blocked)
+      37:	r1 = *(u64 *)(r10 - 56)
+      38:	if r1 == 0 goto +4 <LBB0_6>
+      39:	goto +0 <LBB0_5>
+
+0000000000000140 <LBB0_5>:
+      40:	r1 = 1
+;         return XDP_DROP;
+      41:	*(u32 *)(r10 - 4) = r1
+      42:	goto +40 <LBB0_11>
+
+0000000000000158 <LBB0_6>:
+;     struct tcphdr *tcph = data + sizeof(struct ethhdr) + (iph->ihl * 4);
+      43:	r1 = *(u64 *)(r10 - 24)
+      44:	r2 = *(u64 *)(r10 - 48)
+      45:	r2 = *(u8 *)(r2 + 0)
+      46:	r2 &= 15
+      47:	r2 <<= 2
+      48:	r1 += r2
+      49:	r1 += 14
+      50:	*(u64 *)(r10 - 64) = r1
+;     if (tcph + 1 > (struct tcphdr *)data_end)
+      51:	r2 = *(u64 *)(r10 - 64)
+      52:	r2 += 20
+      53:	r1 = *(u64 *)(r10 - 32)
+      54:	if r1 >= r2 goto +4 <LBB0_8>
+      55:	goto +0 <LBB0_7>
+
+00000000000001c0 <LBB0_7>:
+      56:	r1 = 1
+;         return XDP_DROP;
+      57:	*(u32 *)(r10 - 4) = r1
+      58:	goto +24 <LBB0_11>
+
+00000000000001d8 <LBB0_8>:
+;     if (tcph->dest == htons(8080))
+      59:	r1 = *(u64 *)(r10 - 64)
+      60:	r1 = *(u16 *)(r1 + 2)
+      61:	if r1 != 36895 goto +18 <LBB0_10>
+      62:	goto +0 <LBB0_9>
+
+00000000000001f8 <LBB0_9>:
+      63:	r1 = 1
+;         __u8 val = 1;
+      64:	*(u64 *)(r10 - 80) = r1
+      65:	*(u8 *)(r10 - 65) = r1
+;         bpf_map_update_elem(&blocked_map, &iph->saddr, &val, BPF_ANY);
+      66:	r1 = 8 ll
+      68:	r5 = *(u64 *)(r1 + 0)
+      69:	r2 = *(u64 *)(r10 - 48)
+      70:	r2 += 12
+      71:	r1 = 0 ll
+      73:	r3 = r10
+;         __u8 val = 1;
+      74:	r3 += -65
+      75:	r4 = 0
+;         bpf_map_update_elem(&blocked_map, &iph->saddr, &val, BPF_ANY);
+      76:	callx r5
+      77:	r1 = *(u64 *)(r10 - 80)
+;         return XDP_DROP;
+      78:	*(u32 *)(r10 - 4) = r1
+      79:	goto +3 <LBB0_11>
+
+0000000000000280 <LBB0_10>:
+      80:	r1 = 2
+;     return XDP_PASS;
+      81:	*(u32 *)(r10 - 4) = r1
+      82:	goto +0 <LBB0_11>
+
+0000000000000298 <LBB0_11>:
+; }
+      83:	r0 = *(u32 *)(r10 - 4)
+      84:	exit

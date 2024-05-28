@@ -1,0 +1,69 @@
+
+../asm/objdump/xdp_adjust_tailO3.o:	file format elf64-bpf
+
+Disassembly of section xdp_prog:
+
+0000000000000000 <xdp_prog_main>:
+; {
+       0:	r6 = r1
+       1:	r0 = 1
+;     void *data_end = (void *)(long)ctx->data_end;
+       2:	r1 = *(u32 *)(r6 + 4)
+;     void *data = (void *)(long)ctx->data;
+       3:	r3 = *(u32 *)(r6 + 0)
+;     if (eth + 1 > (struct ethhdr *)data_end)
+       4:	r2 = r3
+       5:	r2 += 14
+       6:	if r2 > r1 goto +35 <LBB0_8>
+;     if (iph + 1 > (struct iphdr *)data_end)
+       7:	r3 += 34
+       8:	r0 = 1
+;     if (iph + 1 > (struct iphdr *)data_end)
+       9:	if r3 > r1 goto +32 <LBB0_8>
+;     struct tcphdr *tcph = data + sizeof(struct ethhdr) + (iph->ihl * 4);
+      10:	r3 = *(u8 *)(r2 + 0)
+      11:	r3 <<= 2
+      12:	r3 &= 60
+      13:	r2 += r3
+;     if (tcph + 1 > (struct tcphdr *)data_end)
+      14:	r2 += 20
+      15:	r0 = 1
+;     if (tcph + 1 > (struct tcphdr *)data_end)
+      16:	if r2 > r1 goto +25 <LBB0_8>
+;     if (bpf_xdp_adjust_tail(ctx, (int)32) != 0)
+      17:	r1 = r6
+      18:	r2 = 32
+      19:	call 65
+      20:	r1 = r0
+      21:	r0 = 0
+      22:	r1 <<= 32
+      23:	r1 >>= 32
+      24:	if r1 != 0 goto +17 <LBB0_8>
+;     data_end = (void *)(long)ctx->data_end;
+      25:	r1 = *(u32 *)(r6 + 4)
+;     data = (void *)(long)ctx->data;
+      26:	r3 = *(u32 *)(r6 + 0)
+;     if (eth + 1 > (struct ethhdr *)data_end)
+      27:	r2 = r3
+      28:	r2 += 14
+      29:	r0 = 1
+      30:	if r2 > r1 goto +11 <LBB0_8>
+;     if (iph + 1 > (struct iphdr *)data_end)
+      31:	r3 += 34
+      32:	r0 = 1
+;     if (iph + 1 > (struct iphdr *)data_end)
+      33:	if r3 > r1 goto +8 <LBB0_8>
+;     tcph = data + sizeof(struct ethhdr) + (iph->ihl * 4);
+      34:	r3 = *(u8 *)(r2 + 0)
+      35:	r3 <<= 2
+      36:	r3 &= 60
+      37:	r2 += r3
+;     if (tcph + 1 > (struct tcphdr *)data_end)
+      38:	r2 += 20
+      39:	r0 = 1
+      40:	if r2 > r1 goto +1 <LBB0_8>
+      41:	r0 = 2
+
+0000000000000150 <LBB0_8>:
+; }
+      42:	exit
