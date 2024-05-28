@@ -1,0 +1,52 @@
+
+../asm/objdump/xdp_custom_hdrO3.o:	file format elf64-bpf
+
+Disassembly of section xdp_prog:
+
+0000000000000000 <xdp_prog_main>:
+; {
+       0:	r0 = 1
+;     void *data_end = (void *)(long)ctx->data_end;
+       1:	r2 = *(u32 *)(r1 + 4)
+;     void *data = (void *)(long)ctx->data;
+       2:	r1 = *(u32 *)(r1 + 0)
+;     if (eth + 1 > (struct ethhdr *)data_end)
+       3:	r3 = r1
+       4:	r3 += 14
+       5:	if r3 > r2 goto +23 <LBB0_10>
+;     if (iph + 1 > (struct iphdr *)data_end)
+       6:	r1 += 34
+       7:	if r1 > r2 goto +21 <LBB0_10>
+;     struct udphdr *udph = data + sizeof(struct ethhdr) + (iph->ihl * 4);
+       8:	r1 = *(u8 *)(r3 + 0)
+       9:	r1 <<= 2
+      10:	r1 &= 60
+      11:	r3 += r1
+;     if (udph + 1 > (struct udphdr *)data_end)
+      12:	r1 = r3
+      13:	r1 += 8
+      14:	if r1 > r2 goto +14 <LBB0_10>
+      15:	r3 += 32
+;     if (udph + 1 > (struct udphdr *)data_end)
+      16:	if r3 > r2 goto +12 <LBB0_10>
+;     if (cHdr->field1 != 0x34)
+      17:	r2 = *(u32 *)(r1 + 0)
+      18:	if r2 != 52 goto +10 <LBB0_10>
+;     if (cHdr->field2 != 0x22)
+      19:	r2 = *(u32 *)(r1 + 4)
+      20:	if r2 != 34 goto +8 <LBB0_10>
+;     if (cHdr->field3 != 0x90)
+      21:	r2 = *(u64 *)(r1 + 8)
+      22:	if r2 != 144 goto +6 <LBB0_10>
+;     if (cHdr->field4 != 0x53)
+      23:	r2 = *(u16 *)(r1 + 16)
+      24:	if r2 != 83 goto +4 <LBB0_10>
+;     if (cHdr->field5 != 0x10)
+      25:	r1 = *(u8 *)(r1 + 18)
+      26:	r0 = 2
+      27:	if r1 == 16 goto +1 <LBB0_10>
+      28:	r0 = 1
+
+00000000000000e8 <LBB0_10>:
+; }
+      29:	exit
