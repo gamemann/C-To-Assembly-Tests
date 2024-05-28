@@ -32,6 +32,12 @@ do
     gcc -S -O${x} -o $ROOTDIR/asm/gcc/main/${FILE}O${x}.s $ROOTDIR/src/${FILE}.c
     gcc -g -S -O${x} -o $ROOTDIR/asm/gcc/debug/${FILE}O${x}.s $ROOTDIR/src/${FILE}.c
 
+    # If we have an XDP program, also try to include objdump.
+    if [[ "$FILE" == *"xdp"* ]]; then
+        clang -target bpf -g -c -O${x} -o $ROOTDIR/asm/objdump/${FILE}O${x}.o $ROOTDIR/src/${FILE}.c
+        llvm-objdump -S --no-show-raw-insn $ROOTDIR/asm/objdump/${FILE}O${x}.o > $ROOTDIR/asm/objdump/${FILE}O${x}.dmp
+    fi
+
     # Increment.
     x=$(( $x + 1 ))
 done
